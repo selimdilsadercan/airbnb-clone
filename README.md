@@ -68,11 +68,11 @@
 - [ ] npm i -D @types/uuid
 - [-] import { v4 as uuid } from "uuid";
 
-- [ ] add "postinstall": "prisma generate" to package.json
-- [ ] gh create repo
-- [ ] vercel
-- [ ] add .env tokens to vercel
-- [ ] redoploy
+- [x] add "postinstall": "prisma generate" to package.json
+- [x] gh create repo
+- [x] vercel
+- [x] add .env tokens to vercel
+- [x] redoploy
 
 - [ ] npm i socket.io
 - [ ] npm i socket.io-client
