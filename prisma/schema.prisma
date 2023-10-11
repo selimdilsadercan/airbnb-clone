@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+model Listing {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  title         String
+  description   String
+  imageSrc      String
+  category      String
+  roomCount     Int
+  bathroomCount Int
+  guestCount    Int
+  locationValue String
+  price         Int
+  userId        String
+
+  reservations Reservation[]
+
+  profileId String
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+model Reservation {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  startDate  DateTime
+  endDate    DateTime
+  totalPrice Int
+
+  listingId String
+  listing   Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  profileId String
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+model Profile {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId      String   @unique
+  name        String
+  imageUrl    String
+  email       String
+  favoriteIds String[]
+
+  listings     Listing[]
+  reservations Reservation[]
+}
+
+//selim 4jRcqTmCso6BQfq-sw4x1w
+//mkdir -p $env:appdata\postgresql\; Invoke-WebRequest -Uri https://cockroachlabs.cloud/clusters/de2738a3-003d-4b71-90d0-e1a29a3e7930/cert -OutFile $env:appdata\postgresql\root.crt
